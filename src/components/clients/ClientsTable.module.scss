@@ -1,0 +1,256 @@
+.container {
+  background: #FCFCFC;
+  border-radius: 2.5rem;
+  padding: 2rem 3rem;
+  font-family: sans-serif;
+  width: 64rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .tableName {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  .addBtn {
+    background: #00FFC2;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+}
+
+.tableWrapper {
+  max-height: 300px; // Подбери высоту под 5 строк (примерно 350-400px)
+  overflow-y: auto;  // Включает вертикальную прокрутку
+  overflow-x: auto;  // На случай, если таблица не влезет по ширине на мобилках
+  
+  // Стилизация скроллбара (опционально, для красоты)
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 10px;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  tbody {
+    .tableRow {
+      height: 60px;
+      // Плавный переход для всех свойств (фона, теней и т.д.)
+      transition: all 0.2s ease-in-out; 
+      cursor: pointer;
+
+      td {
+        padding: 12px;
+        color: #333;
+      }
+
+      // Эффект при наведении
+      &:hover {
+        background-color: #EBEBEB; // Легкое затемнение (светло-серый)
+        transform: translateY(-1px); // Небольшой эффект "приподнятия"
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); // Легкая тень
+      }
+    }
+  }
+  thead {
+    position: sticky; // Шапка теперь не будет уезжать при прокрутке!
+    top: 0;
+    background-color: #FCFCFC; // Цвет фона шапки
+    z-index: 1;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.05); // Тень под шапкой
+  }
+
+  th {
+    text-align: left;
+    padding: 1rem 0.5rem;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #BCBCBC;
+  }
+
+  td {
+    padding: 1.2rem 0.5rem;
+    font-size: 1rem;
+    color: #1a1a1a;
+  }
+  
+  // Остальные твои стили для td, tr...
+}
+
+// Подсветка строки при оплате
+.activeRow {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0.8rem;
+}
+
+// Цвета статусов
+.statusComplete {
+  color: #00FFC2;
+  font-weight: 500;
+}
+
+.statusUnpaid {
+  color: #1a1a1a;
+  min-width: 6rem;
+}
+
+// Стили переключателя (Toggle)
+.toggle {
+  width: 2.8rem;
+  height: 1.4rem;
+  background: #BCBCBC;
+  border-radius: 1rem;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  .circle {
+    width: 1.1rem;
+    height: 1.1rem;
+    background: #323232;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0.2rem;
+    transform: translateY(-50%);
+    transition: left 0.3s;
+  }
+}
+
+.toggleOn {
+  background: #00FFC2;
+  .circle {
+    left: 1.5rem; // Сдвигаем вправо
+  }
+}
+
+/* Раскрывающийся поиск */
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 2rem;
+  overflow: hidden;
+  width: 40px; /* Изначально узкий */
+  transition: width 0.4s ease;
+  border: 1px solid #ccc;
+
+  input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    width: 0;
+    transition: width 0.4s;
+    opacity: 0;
+  }
+
+  &.open {
+    width: 250px; /* Раскрывается */
+    input {
+      width: 100%;
+      opacity: 1;
+      padding-left: 1rem;
+    }
+  }
+
+  .searchBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+/* Стили для селектора фильтра */
+.filterSelect {
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid #BCBCBC;
+  background: #EBEBEB;
+  cursor: pointer;
+}
+
+/* Кнопка добавления */
+.addBtn {
+  &:active {
+    transform: scale(0.95); /* Эффект нажатия */
+  }
+}
+/* Фон затемнения для модального окна */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Окно формы */
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h3 { margin: 0; }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    input {
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+.modalButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Убедимся, что тоггл кликается корректно */
+.toggle {
+  display: inline-block;
+  /* ... остальные твои стили ... */
+  pointer-events: auto; /* На всякий случай */
+}
+

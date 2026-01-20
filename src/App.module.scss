@@ -1,0 +1,46 @@
+@import './index.scss';
+
+.appContainer {
+  min-height: 100vh;
+  padding: $gutter;
+  background-color: #f5f5f5;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: $gutter;
+  color: $color-dark;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 18.75rem);
+  gap: 3.75rem;
+  margin-bottom: 4.375rem;
+  margin-top: 4.375rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testBox {
+  background-color: $color-danger;
+  color: white;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  transition: $transition-default;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    transform: translateY(-2px);
+  }
+}
