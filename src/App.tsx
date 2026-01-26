@@ -11,7 +11,7 @@ function App() {
     <div className={styles.appContainer}>
       <Header />
       <div style={{display: 'flex', gap: '50px', maxWidth: '1900px'}}>
-        <div style={{ flex: 2 }}>
+        <div style={{ flex: 1 }}>
           <div className={styles.grid}>
             <TotalClientsStat />  {/* Используем обертку с логикой запроса */}
             <PaymentStatusStat />

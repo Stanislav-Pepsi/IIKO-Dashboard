@@ -1,94 +1,101 @@
-.wrapper {
-  width: 100%;
-  margin-top: 70px;
-}
-
-.mainHeader {
-  background: #2d3436;
-  color: white;
-  text-align: center;
-  padding: 12px;
-  border-radius: 15px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  text-transform: uppercase;
-}
-
-.board {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; // Строго 3 колонки
-  gap: 30px;
-}
-
-.column {
+.wrapper { padding-top: 70px; color: #333; }
+.mainHeader { font-weight: bold; margin-bottom: 20px; font-size: 1.2rem; background-color: #262931; padding: 10px; color: #ddd; text-align: center; border-radius: 10px;}
+.board { display: flex; gap: 20px; align-items: flex-start; }
+.column { flex: 1;
+  min-width: 200px;
+  background: #f4f7f9;
+  border-radius: 12px;
+  padding-bottom: 20px;
+  max-height: 60vh;
   display: flex;
-  flex-direction: column;
-}
+  flex-direction: column; }
 
-// Заголовки-стрелки
 .arrowHeader {
-  padding: 12px 20px;
+  padding: 15px;
+  font-weight: bold;
   color: white;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+  border-radius: 12px 12px 0 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  .plus { font-size: 1.5rem; cursor: pointer; }
+  justify-content: space-between;
 }
 
-.newBg { background: #4b525a; }
-.activeBg { background: #8a949e; }
-.doneBg { background: #c0c4c9; }
+.newBg { background: #5c7cfa; }
+.activeBg { background: #ffd43b; color: #856404; }
+.doneBg { background: #51cf66; }
 
-// Карточки
+.plus { cursor: pointer; background: rgba(255,255,255,0.3); padding: 0 8px; border-radius: 4px; }
+
+.list { padding-top: 10px; overflow-y: auto; // ВКЛЮЧАЕМ ПРОКРУТКУ
+  flex-grow: 1;   // Занимает всё свободное место
+  
+  // Красивый тонкий скроллбар
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; } }
+
 .card {
-  background: #f1f3f5; // Серый фон как на макете
-  border-radius: 25px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #dee2e6;
-
-  h3 { margin: 10px 0 5px; font-size: 1.1rem; }
-  p { font-size: 0.9rem; color: #495057; margin-bottom: 15px; }
-}
-
-.badge, .executorBadge, .completedBadge {
-  display: inline-block;
-  padding: 4px 12px;
+  background: white;
+  padding: 15px;
+  margin-top: 10px;
   border-radius: 10px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-left: 6px solid transparent; // Заготовка под цвет приоритета
 }
 
-.priorityRed { background: #e74c3c; color: white; }
-.executorBadge { background: #8a949e; color: white; }
-.completedBadge { background: #adb5bd; color: white; }
+/* Приоритеты */
+.badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.priorityCritical { background: #c92a2a; } // Самый красный
+.priorityImportant { background: #ff8787; }
+.priorityNormal { background: #adb5bd; }
+
+/* Красим рамку карточки в зависимости от приоритета */
+.priorityCriticalCard { border-left-color: #c92a2a; }
+.priorityImportantCard { border-left-color: #ff8787; }
+.priorityNormalCard { border-left-color: #adb5bd; }
 
 .actionBtn {
+  margin-top: 10px;
   width: 100%;
-  background: #636e72;
-  color: white;
+  padding: 8px;
   border: none;
-  padding: 10px;
-  border-radius: 12px;
+  border-radius: 6px;
+  background: #e9ecef;
   cursor: pointer;
   font-weight: bold;
-  
-  &:hover { background: #2d3436; }
+  &:hover { background: #dee2e6; }
 }
 
-.secondaryBtn {
-  width: 100%;
-  background: #2d3436;
-  color: white;
+/* Модалка */
+.modalOverlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+.modalContent {
+  background: white; padding: 25px; border-radius: 15px; width: 400px; display: flex; flex-direction: column; gap: 15px;
+  input, textarea, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+}
+.saveBtn { background: #5c7cfa; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; }
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.deleteBtn {
+  background: none;
   border: none;
-  padding: 10px;
-  border-radius: 12px;
+  color: #adb5bd;
+  font-size: 20px;
   cursor: pointer;
+  line-height: 1;
+  padding: 0 5px;
+  &:hover { color: #fa5252; } // Краснеет при наведении
 }
